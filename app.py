@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import psycopg2
@@ -6,13 +7,9 @@ app = Flask(__name__)
 CORS(app)
 
 # ===================== DATABASE =====================
-conn = psycopg2.connect(
-    host="localhost",
-    database="iot",
-    user="postgres",
-    password="iot@1211"
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
 
+conn = psycopg2.connect(DATABASE_URL)
 # ===================== HOME =====================
 @app.route("/")
 def home():
